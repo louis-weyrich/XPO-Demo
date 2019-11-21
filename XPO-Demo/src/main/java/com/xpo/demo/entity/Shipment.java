@@ -9,8 +9,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,48 +19,61 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 
 @Entity(name = "Shippment")
 @Table(name = "shipment")
+@ApiModel(description = "All details about a Shipment. ")
 public class Shipment 
 {
 
 	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="shipment_id", nullable = false, updatable = false)
+	@ApiModelProperty(notes = "Shipment ID")
 	private Long shipmentId;
 	
 	@Column(name="number_of_pieces", nullable = false, updatable = false, columnDefinition = "INT")
+	@ApiModelProperty(notes = "The shipment number of pieces included.")
 	private Integer numberOfPieces;
 	
 	@Column(name="value", nullable = false, updatable = false, columnDefinition = "DECIMAL(13,2)")
+	@ApiModelProperty(notes = "The Shipment value of items")
 	private Double value;
 	
 	@Column(name="weight", nullable = false, updatable = false, columnDefinition = "DECIMAL(13,2)")
+	@ApiModelProperty(notes = "The Shipment weight")
 	private Double weight;
 	
 	@Column(name="volume", nullable = false, updatable = false, columnDefinition = "DECIMAL(13,2)")
+	@ApiModelProperty(notes = "The Shipment volume ")
 	private Double volume;
 	
 	@Column(name="shippers_name", nullable = false, updatable = false, columnDefinition = "VARCHAR(26)")
+	@ApiModelProperty(notes = "The Shippers name")
 	private String shipperName;
 	
 	@Column(name="consignee_name", nullable = false, updatable = false, columnDefinition = "VARCHAR(26)")
+	@ApiModelProperty(notes = "The Shipment consignmenee name")
 	private String consigneeName;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_shipped", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	@ApiModelProperty(notes = "The Shiopment date")
 	private Date dateShipped;
 	
 	@Convert(converter=StatusConverter.class)
 	@Enumerated(EnumType.STRING)
 	@Column(name = "claim_status", nullable = false, length = 24, 
 	columnDefinition = "VARCHAR(12) DEFAULT 'OPEN'")
+	@ApiModelProperty(notes = "The Shipment status")
 	private Status status;
 	
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = Claim.class)
 	@JoinTable(name = "shipment_claims",  joinColumns = @JoinColumn(name = "shipment_id", referencedColumnName = "shipment_id"), inverseJoinColumns = @JoinColumn(name = "claim_id"))
+	@ApiModelProperty(notes = "The Claims of Shipment")
 	private Set<Claim> claims;
 	
 	
