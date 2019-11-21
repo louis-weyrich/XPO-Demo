@@ -17,7 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xpo.demo.entity.Shipment;
 import com.xpo.demo.service.ShipmentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@Api("Shipping API")
 @RestController
 @RequestMapping("/rest/shipping")
 public class ShippingController {
@@ -25,6 +30,7 @@ public class ShippingController {
 	@Autowired
 	private ShipmentService shipmentService;
 
+	@ApiOperation(value = "View a list of shipments", response = List.class)
 	@GetMapping("/shipments")
 	public ResponseEntity <List<Shipment>> getShipments()
 	{
@@ -32,6 +38,13 @@ public class ShippingController {
 		return new ResponseEntity <List<Shipment>> (shipments, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Get a shipment by id", response = Shipment.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "Successfully retrieved list"),
+		@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+		@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+		@ApiResponse(code = 500, message = "The resource you were trying to reach is having problems")
+	})
 	@GetMapping("/shipment/{id}")
 	public ResponseEntity <Shipment> getShipment(@PathVariable("id")Long id)
 	{
@@ -39,6 +52,14 @@ public class ShippingController {
 		return new ResponseEntity <Shipment> (shipment, HttpStatus.OK);
 	}
 	
+	
+	@ApiOperation(value = "Create a new Shipment and get an ID in return", response = Shipment.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 201, message = "Successfully created shipment"),
+		@ApiResponse(code = 401, message = "You are not authorized to create a shipment"),
+		@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+		@ApiResponse(code = 500, message = "The resource you were trying to reach is having problems")
+	})
 	@PostMapping("/shipment/create")
 	public ResponseEntity <Long> createNewShipment(@RequestBody Shipment shipment)
 	{
@@ -46,6 +67,14 @@ public class ShippingController {
 		return new ResponseEntity <Long> (id, HttpStatus.CREATED);
 	}
 	
+	
+	@ApiOperation(value = "Create a new Shipments by excel files", response = Shipment.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 201, message = "Successfully created shipments"),
+		@ApiResponse(code = 401, message = "You are not authorized to create a shipment"),
+		@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+		@ApiResponse(code = 500, message = "The resource you were trying to reach is having problems")
+	})
 	@PostMapping("/shipment/upload")
 	public FileUploadResponse uploadXlsxFiles(@RequestParam("files") MultipartFile[] files)
 	{
