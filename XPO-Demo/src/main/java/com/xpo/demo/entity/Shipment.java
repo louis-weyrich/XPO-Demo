@@ -84,6 +84,23 @@ public class Shipment
 
 
 
+	public Shipment(Long shipmentId, Integer numberOfPieces, Double value, Double weight, Double volume,
+			String shipperName, String consigneeName, Date dateShipped, Status status, Set<Claim> claims) {
+		super();
+		this.shipmentId = shipmentId;
+		this.numberOfPieces = numberOfPieces;
+		this.value = value;
+		this.weight = weight;
+		this.volume = volume;
+		this.shipperName = shipperName;
+		this.consigneeName = consigneeName;
+		this.dateShipped = dateShipped;
+		this.status = status;
+		this.claims = claims;
+	}
+
+
+
 	public Long getShipmentId() {
 		return shipmentId;
 	}

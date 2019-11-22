@@ -66,8 +66,25 @@ public class Claim
 
 	public Claim() 
 	{
-		// TODO Auto-generated constructor stub
+		// Do Nothing
 	}
+	
+	
+
+	public Claim(Long claimId, String claimant, String examiner, String fileBy, Double amount, Double paid,
+			Date dateFiled, Status status) {
+		super();
+		this.claimId = claimId;
+		this.claimant = claimant;
+		this.examiner = examiner;
+		this.fileBy = fileBy;
+		this.amount = amount;
+		this.paid = paid;
+		DateFiled = dateFiled;
+		this.status = status;
+	}
+
+
 
 	public Long getClaimId() {
 		return claimId;
