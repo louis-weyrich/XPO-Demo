@@ -42,7 +42,7 @@ public class ClaimController {
 		return shipment.getClaims();
 	}
 	
-	@ApiOperation(value = "Get a Claim by id", response = Shipment.class)
+	@ApiOperation(value = "Get a Claim by id", response = Claim.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "Successfully retrieved list of Claims"),
 		@ApiResponse(code = 401, message = "You are not authorized to view the resource"),

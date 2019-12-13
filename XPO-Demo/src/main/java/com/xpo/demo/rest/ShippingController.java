@@ -53,7 +53,7 @@ public class ShippingController {
 	}
 	
 	
-	@ApiOperation(value = "Create a new Shipment and get an ID in return", response = Shipment.class)
+	@ApiOperation(value = "Create a new Shipment and get an ID in return", response = Long.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 201, message = "Successfully created shipment"),
 		@ApiResponse(code = 401, message = "You are not authorized to create a shipment"),
@@ -68,7 +68,7 @@ public class ShippingController {
 	}
 	
 	
-	@ApiOperation(value = "Create a new Shipments by excel files", response = Shipment.class)
+	@ApiOperation(value = "Create a new Shipments by excel files", response = FileUploadResponse.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 201, message = "Successfully created shipments"),
 		@ApiResponse(code = 401, message = "You are not authorized to create a shipment"),
